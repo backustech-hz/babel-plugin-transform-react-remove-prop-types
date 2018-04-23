@@ -31,6 +31,10 @@ function isReactClass(superClass, scope, globalOptions) {
     return false
   }
 
+  if (globalOptions.doNotCheckReactClass) {
+    return true;
+  }
+
   let answer = false
 
   if (isPathReactClass(superClass, globalOptions)) {
@@ -94,6 +98,7 @@ export default function({ template, types, traverse }) {
           removeImport: state.opts.removeImport || false,
           libraries: (state.opts.additionalLibraries || []).concat('prop-types'),
           classNameMatchers,
+          doNotCheckReactClass: state.opts.doNotCheckReactClass,
         }
 
         if (state.opts.plugins) {
